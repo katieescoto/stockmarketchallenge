@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 //import OwnedStock from './ownedStock'
+import Navbar from './navBar'
 
 export default class stockBoard extends Component {
   constructor(props){
@@ -7,7 +8,8 @@ export default class stockBoard extends Component {
     this.state = {
       stocks: [],
       ownedStocks: [],
-      limitTo: 20
+      limitTo: 20,
+      funds: 10000
     }
     this.onLoadMore = this.onLoadMore.bind(this)
     this.buyStock = this.buyStock.bind(this)
@@ -22,11 +24,14 @@ export default class stockBoard extends Component {
   buyStock(item){
     let newStock = [...this.state.ownedStocks]
     newStock.push(item)
+    let newFunds = this.state.funds - item.price
 
     this.setState({
-      ownedStocks: newStock
+      ownedStocks: newStock,
+      funds: newFunds,
     })
     console.log('this is the state', this.state.ownedStocks)
+    console.log('these are the funds:', this.state.funds)
   }
 
  componentDidMount(){
@@ -50,6 +55,7 @@ export default class stockBoard extends Component {
     const { stocks } = this.state
     return (
       <div>
+        <Navbar funds={this.state.funds}/>
         <h1>Stock Boards</h1>
         <ul>
           {stocks.slice(0, this.state.limitTo).map(item => (
