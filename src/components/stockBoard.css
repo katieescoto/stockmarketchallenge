@@ -1,0 +1,21 @@
+.row{
+  display: flex;
+}
+
+.column{
+  flex: 50%;
+  border: 2px solid black
+}
+
+.singleStock{
+  border: 1px solid black;
+}
+
+*{
+  padding: 0;
+}
+
+.stockTable{
+  margin: auto;
+  border-spacing: 6px;
+}

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
-//import OwnedStock from './ownedStock'
+import OwnedStock from './ownedStocks'
+import './stockBoard.css'
+import StocksTable from '../components/stocksTable'
 import Navbar from './navBar'
 
 export default class stockBoard extends Component {
+
   constructor(props){
     super(props);
     this.state = {
@@ -12,8 +15,44 @@ export default class stockBoard extends Component {
       funds: 10000
     }
     this.onLoadMore = this.onLoadMore.bind(this)
-    this.buyStock = this.buyStock.bind(this)
+    this.addStock = this.addStock.bind(this)
+    this.sellStock = this.sellStock.bind(this)
+    //this.growth = this.growth.bind(this)
   }
+
+  componentDidMount(){
+    fetch(process.env.PUBLIC_URL + "data/mockStocks.json")
+     .then((res) => {
+       if(res.status >= 400){
+         throw new Error('bad response')
+       }
+       return res.json()
+     })
+     .then(
+       (data) => {
+         this.setState({
+           stocks: data.stocks
+         })
+       }
+     )
+       this.interval = setInterval(()=>this.growth(this.state.stocks),3000)
+
+  }
+
+  growth(stocks){
+    let updatedStocks = stocks.map((stock)=>{
+      let newPrice = stock.price + 100;
+      stock.price = newPrice
+      return stock
+    })
+
+    this.setState({
+      stocks: updatedStocks
+    })
+
+    console.log(this.state.stocks)
+  }
+
 
   onLoadMore(){
     this.setState({
@@ -21,54 +60,58 @@ export default class stockBoard extends Component {
     })
   }
 
-  buyStock(item){
-    let newStock = [...this.state.ownedStocks]
-    newStock.push(item)
-    let newFunds = this.state.funds - item.price
+  addStock(item){
+    if(item.owned === 0){
+      item.owned = 1
+    } else {
+      item.owned += 1
+    }
 
-    this.setState({
-      ownedStocks: newStock,
-      funds: newFunds,
-    })
-    console.log('this is the state', this.state.ownedStocks)
-    console.log('these are the funds:', this.state.funds)
+    if(this.state.funds < item.price){
+      alert('not enough funds')
+    } else {
+      this.setState({
+        ownedStocks: [...this.state.ownedStocks, item],
+        funds: this.state.funds - item.price
+      })
+    }
+  };
+
+  sellStock(item){
+    if(item.owned > 0){
+      this.setState({
+        funds: this.state.funds + item.price,
+        owned: item.owned--
+      })
+    } else{
+      alert('no more shares to sell!')
+    }
   }
 
- componentDidMount(){
-   fetch(process.env.PUBLIC_URL + "data/mockStocks.json")
-    .then((res) => {
-      if(res.status >= 400){
-        throw new Error('bad response')
-      }
-      return res.json()
-    })
-    .then(
-      (data) => {
-        this.setState({
-          stocks: data.stocks
-        })
-      }
-    )
- }
-
   render() {
-    const { stocks } = this.state
+
+  const {stocks, limitTo, ownedStocks} = this.state
+
     return (
       <div>
-        <Navbar funds={this.state.funds}/>
-        <h1>Stock Boards</h1>
-        <ul>
-          {stocks.slice(0, this.state.limitTo).map(item => (
-            <li key={item.id}>
-              <p>CompanyName:{item.companyName}</p>
-              <p>Price: $ {item.price}/share</p>
-              <button type="button" onClick={()=> this.buyStock(item)}>BUY</button>
-            </li>
-          ))}
-        </ul>
+          <Navbar funds={this.state.funds}/>
 
-        <button type="button" onClick={this.onLoadMore}>Load more </button>
+         <div className="row">
+          <div className="column">
+           <StocksTable data={stocks} limit={limitTo} onLoadMore={this.onLoadMore} addStock={this.addStock}/>
+          </div>
+
+
+          <div className="column">
+            <OwnedStock ownedStocks={ownedStocks} sellStock={this.sellStock}/>
+            <p>growth: {this.interval}</p>
+          </div>
+
+
+        </div>
+
       </div>
     )
   }
 }
+
