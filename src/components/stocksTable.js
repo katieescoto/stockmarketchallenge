@@ -40,8 +40,7 @@ export default function StockTable(props) {
               <td>{item.stockSymbol}</td>
               <td>{item.companyName}</td>
               <td> ${item.price}/share</td>
-              <button type="button" onClick={() => console.log('buy me')}>BUY</button>
-              <td><button type="button" onClick={() => addStock(item)}>+</button></td>
+              <td><button type="button" onClick={() => addStock(item)}>BUY</button></td>
             </tr>
           ))}
           </tbody>

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import OwnedStock from './ownedStocks'
 import './stockBoard.css'
 import StocksTable from '../components/stocksTable'
-import Header from '../components/header'
+import Navbar from './navBar'
 
 export default class stockBoard extends Component {
 
@@ -11,12 +11,13 @@ export default class stockBoard extends Component {
     this.state = {
       stocks: [],
       ownedStocks: [],
-      limitTo: 15,
-      // timer: 1
+      limitTo: 20,
+      funds: 10000
     }
     this.onLoadMore = this.onLoadMore.bind(this)
     this.addStock = this.addStock.bind(this)
-
+    this.sellStock = this.sellStock.bind(this)
+    //this.growth = this.growth.bind(this)
   }
 
   componentDidMount(){
@@ -34,14 +35,24 @@ export default class stockBoard extends Component {
          })
        }
      )
-      // this.timeOut = setInterval(() =>{
-      //   this.setState({timer: this.state.timer + 1})
-      // }, 1000)
+       this.interval = setInterval(()=>this.growth(this.state.stocks),3000)
+
   }
 
-  componentWillUnmount(){
-    clearInterval(this.timeOut)
+  growth(stocks){
+    let updatedStocks = stocks.map((stock)=>{
+      let newPrice = stock.price + 100;
+      stock.price = newPrice
+      return stock
+    })
+
+    this.setState({
+      stocks: updatedStocks
+    })
+
+    console.log(this.state.stocks)
   }
+
 
   onLoadMore(){
     this.setState({
@@ -50,40 +61,52 @@ export default class stockBoard extends Component {
   }
 
   addStock(item){
-    this.setState({
-      ownedStocks: [...this.state.ownedStocks, item]
-    })
-    // console.log(this.state.stocks)
+    if(item.owned === 0){
+      item.owned = 1
+    } else {
+      item.owned += 1
+    }
+
+    if(this.state.funds < item.price){
+      alert('not enough funds')
+    } else {
+      this.setState({
+        ownedStocks: [...this.state.ownedStocks, item],
+        funds: this.state.funds - item.price
+      })
+    }
   };
 
+  sellStock(item){
+    if(item.owned > 0){
+      this.setState({
+        funds: this.state.funds + item.price,
+        owned: item.owned--
+      })
+    } else{
+      alert('no more shares to sell!')
+    }
+  }
+
   render() {
+
   const {stocks, limitTo, ownedStocks} = this.state
 
-  //   let growth = (stocks) => {
-  //   const updatedStocks = stocks.map((stock)=> {
-  //     const newPrice = stock.price + 100;
-  //     stock.price = +newPrice.toFixed(2)
-  //   console.log('this is the growth',stock.price, 'for co', stock.companyName)
-  //     // console.log('this is the stock', stock)
-  //     return stock
-  //   })
-  //   //console.log('updatedStocks', updatedStocks)
-  //   //loadStocks(updatedStocks)
-  //   setTimeout(growth, 5000, updatedStocks);
-  // }
     return (
       <div>
-        <Header/>
+          <Navbar funds={this.state.funds}/>
 
          <div className="row">
           <div className="column">
            <StocksTable data={stocks} limit={limitTo} onLoadMore={this.onLoadMore} addStock={this.addStock}/>
           </div>
-          {/* <p>seconds: {this.state.timer}</p> */}
+
 
           <div className="column">
-            <OwnedStock ownedStocks={ownedStocks}/>
+            <OwnedStock ownedStocks={ownedStocks} sellStock={this.sellStock}/>
+            <p>growth: {this.interval}</p>
           </div>
+
 
         </div>
 
