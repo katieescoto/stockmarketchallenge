@@ -1,0 +1,13 @@
+.header {
+  flex-direction: row;
+  justify-content: space-between;
+}
+.box{
+  border: 1px solid black;
+  border-spacing: 10px;
+
+}
+.portfolio{
+  background-color: yellow;
+  column-gap: 10px
+}

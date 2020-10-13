@@ -7,9 +7,9 @@ export default function ownedStocks(props) {
 
   return (
     <div>
-      <h1>Owned Stocks</h1>
+      <h1 className='boardName'>Owned Stocks</h1>
         <table className='stockTable'>
-          <thead>
+          <thead className='tableHeader'>
             <tr>
               <th>SYM</th>
               <th>COM</th>
@@ -24,11 +24,10 @@ export default function ownedStocks(props) {
               <td>{item.companyName}</td>
               <td> ${item.price}/sh</td>
               <td>Shares: {item.owned}</td>
-              <button type="button" onClick={()=> sellStock(item)}>SELL</button>
+              <button className='sellButton'type="button" onClick={()=> sellStock(item)}>SELL</button>
               <td><button type="button" onClick={console.log('delete')}>-</button></td>
             </tr>
         ))}
-
 
           </tbody>
         </table>

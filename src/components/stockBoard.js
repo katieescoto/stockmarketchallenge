@@ -17,7 +17,6 @@ export default class stockBoard extends Component {
     this.onLoadMore = this.onLoadMore.bind(this)
     this.addStock = this.addStock.bind(this)
     this.sellStock = this.sellStock.bind(this)
-    //this.growth = this.growth.bind(this)
   }
 
   componentDidMount(){
@@ -36,23 +35,19 @@ export default class stockBoard extends Component {
        }
      )
        this.interval = setInterval(()=>this.growth(this.state.stocks),3000)
-
   }
 
   growth(stocks){
     let updatedStocks = stocks.map((stock)=>{
       let newPrice = stock.price + 100;
-      stock.price = newPrice
+      stock.price = +newPrice.toFixed(2)
       return stock
     })
 
     this.setState({
       stocks: updatedStocks
     })
-
-    console.log(this.state.stocks)
   }
-
 
   onLoadMore(){
     this.setState({
@@ -101,15 +96,10 @@ export default class stockBoard extends Component {
            <StocksTable data={stocks} limit={limitTo} onLoadMore={this.onLoadMore} addStock={this.addStock}/>
           </div>
 
-
           <div className="column">
             <OwnedStock ownedStocks={ownedStocks} sellStock={this.sellStock}/>
-            <p>growth: {this.interval}</p>
           </div>
-
-
         </div>
-
       </div>
     )
   }
