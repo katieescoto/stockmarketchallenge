@@ -1,17 +1,14 @@
 .row{
     display: flex;
-    text-align: justify;
-    /* border: 10px solid black; */
     column-gap: 15px;
-    padding: 20px;
+    padding: 5vh;
     color: white;
     background-color: black;
-    /* width: 100%; it changes by screen size actually */
 }
 
 .column{
   flex: 50%;
-  border: 2px solid white;
+  border: 3px solid white;
   width: 100%;
   padding: 10px;
 }
@@ -45,12 +42,9 @@
 }
 
 .tableHeader{
-  color:yellow
+  color:yellow;
+  justify-content: center;
 }
-/* .scrollit{
-  overflow: scroll;
-  height: 50%;
-} */
 
 .loadMore{
   background-color: honeydew;

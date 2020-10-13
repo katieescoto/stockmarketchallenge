@@ -3,6 +3,8 @@ import OwnedStock from './ownedStocks'
 import './stockBoard.css'
 import StocksTable from '../components/stocksTable'
 import Navbar from './navBar'
+import {randomGrowth} from './utils/randomGrowth'
+import UserForm from './userForm'
 
 export default class stockBoard extends Component {
 
@@ -12,11 +14,14 @@ export default class stockBoard extends Component {
       stocks: [],
       ownedStocks: [],
       limitTo: 20,
-      funds: 10000
+      funds: 0,
+      userName:'',
     }
     this.onLoadMore = this.onLoadMore.bind(this)
     this.addStock = this.addStock.bind(this)
     this.sellStock = this.sellStock.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount(){
@@ -39,7 +44,7 @@ export default class stockBoard extends Component {
 
   growth(stocks){
     let updatedStocks = stocks.map((stock)=>{
-      let newPrice = stock.price + 100;
+      let newPrice = stock.price * randomGrowth();
       stock.price = +newPrice.toFixed(2)
       return stock
     })
@@ -47,6 +52,21 @@ export default class stockBoard extends Component {
     this.setState({
       stocks: updatedStocks
     })
+  }
+
+  handleChange(event){
+    this.setState({
+      [event.target.name] : event.target.value
+    })
+  }
+
+  handleSubmit(event){
+    // console.log('welcome:->' + this.state.userName, 'funds:->', this.state.funds)
+    event.preventDefault()
+    // this.setState({
+    //       [event.target.name] : event.target.value
+    //     })
+
   }
 
   onLoadMore(){
@@ -67,7 +87,7 @@ export default class stockBoard extends Component {
     } else {
       this.setState({
         ownedStocks: [...this.state.ownedStocks, item],
-        funds: this.state.funds - item.price
+        funds:this.state.funds - item.price
       })
     }
   };
@@ -78,6 +98,7 @@ export default class stockBoard extends Component {
         funds: this.state.funds + item.price,
         owned: item.owned--
       })
+
     } else{
       alert('no more shares to sell!')
     }
@@ -85,11 +106,13 @@ export default class stockBoard extends Component {
 
   render() {
 
-  const {stocks, limitTo, ownedStocks} = this.state
+  const {stocks, limitTo, ownedStocks, userName, funds} = this.state
 
     return (
       <div>
-          <Navbar funds={this.state.funds}/>
+          <UserForm userName={userName} funds={funds} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
+
+          <Navbar funds={funds} userName={userName}/>
 
          <div className="row">
           <div className="column">

@@ -2,27 +2,22 @@ import React, { Component } from 'react'
 import './navBar.css'
 
 export default class navBar extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      userName: '',
-    }
-  }
+
   render() {
+    const {userName, funds} = this.props
+
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    })
+
     return (
       <div className="header">
-        {/* <h1>Welcome,{this.state.user} </h1> */}
-
-        <p><img alt='logo' src="https://img.icons8.com/windows/32/000000/stocks.png"/></p>
-        {/* <form>
-          <label>
-            Welcome, <input type='text' name='name'/>
-            <input type='submit' value='submit'/>
-          </label>
-        </form> */}
+        {/* <p><img alt='logo' src="https://img.icons8.com/windows/32/000000/stocks.png"/></p> */}
         <div className='portfolio'>
-          <h3 className='box'>hi,</h3>
-          <h3 className='box'>Funds: ${this.props.funds}</h3>
+          <h3 className='box'>hi,{userName}</h3>
+          <h3 className='box'>Funds: {formatter.format(funds)}</h3>
         </div>
 
       </div>
