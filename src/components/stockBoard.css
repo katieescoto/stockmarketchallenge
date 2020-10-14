@@ -1,21 +1,52 @@
 .row{
-  display: flex;
+    display: flex;
+    column-gap: 15px;
+    padding: 5vh;
+    color: white;
+    background-color: black;
 }
 
 .column{
   flex: 50%;
-  border: 2px solid black
+  border: 3px solid white;
+  width: 100%;
+  padding: 10px;
 }
 
 .singleStock{
-  border: 1px solid black;
-}
-
-*{
-  padding: 0;
+  border: 1px solid white;
 }
 
 .stockTable{
   margin: auto;
   border-spacing: 6px;
+}
+
+.boardName{
+  text-align: center;
+  border-bottom: 2px solid white;
+}
+
+.buyButton{
+  border: yellowgreen;
+  background-color: rgb(72, 228, 72);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(90, 224, 97, 0.5), 0 6px 20px 0 rgba(41, 209, 19, 0.363);
+}
+
+.sellButton{
+  border: tomato;
+  background-color: red;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(224, 90, 90, 0.5), 0 6px 20px 0 rgba(235, 33, 49, 0.363);
+}
+
+.tableHeader{
+  color:yellow;
+  justify-content: center;
+}
+
+.loadMore{
+  background-color: honeydew;
+  border-radius: 10px;
 }
