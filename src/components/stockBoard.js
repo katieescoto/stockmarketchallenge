@@ -13,7 +13,7 @@ export default class stockBoard extends Component {
     this.state = {
       stocks: [],
       ownedStocks: [],
-      limitTo: 20,
+      limitTo: 15,
       funds: 0,
       userName:'',
       gainOrLoss: 0,

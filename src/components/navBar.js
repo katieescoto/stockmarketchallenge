@@ -25,7 +25,6 @@ export default class navBar extends Component {
 
     return (
       <div className="header">
-        {/* <p><img alt='logo' src="https://img.icons8.com/windows/32/000000/stocks.png"/></p> */}
         <div className='portfolio'>
           <h3 className='box'>WELCOME,{userName}</h3>
           <h3 className='box'>FUNDS: {formatter.format(funds)}</h3>
@@ -39,3 +38,5 @@ export default class navBar extends Component {
     );
   }
 }
+
+
