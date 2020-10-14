@@ -45,6 +45,11 @@ export default class stockBoard extends Component {
   growth(stocks){
     let updatedStocks = stocks.map((stock)=>{
       let newPrice = stock.price * randomGrowth();
+      if (stock.priceHistory){
+        stock.priceHistory.push(stock.price)
+      } else {
+        stock.priceHistory = [stock.price]
+      }
       stock.price = +newPrice.toFixed(2)
       return stock
     })

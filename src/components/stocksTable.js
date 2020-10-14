@@ -1,5 +1,6 @@
 import React from 'react'
 import './stockBoard.css'
+import singleStock from './SingleStock'
 
 export default function StockTable(props) {
   const {data, limit, onLoadMore, addStock} = props
@@ -19,7 +20,7 @@ export default function StockTable(props) {
           {data.slice(0, limit).map(item => (
             <tr key={item.id}>
               <td>{item.stockSymbol}</td>
-              <td>{item.companyName}</td>
+              <td onClick={singleStock}>{item.companyName}</td>
               <td> ${item.price}/share</td>
               <td ><button className='buyButton' type="button" onClick={() => addStock(item)}>BUY</button></td>
             </tr>
