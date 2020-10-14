@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 
 export default class userForm extends Component {
   render() {
@@ -12,8 +13,14 @@ export default class userForm extends Component {
           Funds:
           <input placeholder='$$$' name='funds' type='text' value={funds} onChange={onChange}/>
         </label>
-        <button type='button' onClick={()=>alert('start trading')}>Let's trade</button>
+
+        <button type='button'>
+          <Link to='/stockBoard'>
+          </Link>Let's trade
+        </button>
+
       </form>
+
 
     )
   }
