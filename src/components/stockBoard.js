@@ -16,6 +16,7 @@ export default class stockBoard extends Component {
       limitTo: 20,
       funds: 0,
       userName:'',
+      gainOrLoss: 0,
     }
     this.onLoadMore = this.onLoadMore.bind(this)
     this.addStock = this.addStock.bind(this)
@@ -39,7 +40,7 @@ export default class stockBoard extends Component {
          })
        }
      )
-       this.interval = setInterval(()=>this.growth(this.state.stocks),3000)
+    this.interval = setInterval(()=>this.growth(this.state.stocks),3000)
   }
 
   growth(stocks){
@@ -61,12 +62,7 @@ export default class stockBoard extends Component {
   }
 
   handleSubmit(event){
-    // console.log('welcome:->' + this.state.userName, 'funds:->', this.state.funds)
     event.preventDefault()
-    // this.setState({
-    //       [event.target.name] : event.target.value
-    //     })
-
   }
 
   onLoadMore(){
@@ -90,6 +86,17 @@ export default class stockBoard extends Component {
         funds:this.state.funds - item.price
       })
     }
+
+    // let toBuy = item.owned * item.price
+    // if(toBuy < item.price){
+    //   this.setState({
+    //     gainOrLoss: toBuy - item.price
+    //   })
+    // } else {
+    //   this.setState({
+    //     gainOrLoss: toBuy + item.price
+    //   })
+    // }
   };
 
   sellStock(item){
@@ -98,21 +105,31 @@ export default class stockBoard extends Component {
         funds: this.state.funds + item.price,
         owned: item.owned--
       })
-
     } else{
       alert('no more shares to sell!')
+    }
+
+    let toSell = item.owned * item.price
+    if(toSell < item.price){
+      this.setState({
+        gainOrLoss: toSell - item.price
+      })
+    } else {
+      this.setState({
+        gainOrLoss: toSell + item.price
+      })
     }
   }
 
   render() {
 
-  const {stocks, limitTo, ownedStocks, userName, funds} = this.state
+  const {stocks, limitTo, ownedStocks, userName, funds, gainOrLoss} = this.state
 
     return (
       <div>
           <UserForm userName={userName} funds={funds} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
 
-          <Navbar funds={funds} userName={userName}/>
+          <Navbar stocks={stocks} funds={funds} userName={userName} gainOrLossState={gainOrLoss} profitOrLoss={this.profitOrLoss} />
 
          <div className="row">
           <div className="column">
