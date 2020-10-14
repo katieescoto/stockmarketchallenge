@@ -43,13 +43,23 @@ export default class stockBoard extends Component {
   }
 
   growth(stocks){
+    let priceHistory = [];
     let updatedStocks = stocks.map((stock)=>{
       let newPrice = stock.price * randomGrowth();
-      if (stock.priceHistory){
-        stock.priceHistory.push(stock.price)
-      } else {
-        stock.priceHistory = [stock.price]
+      // if (priceHistory.length>=0){
+      //   if(priceHistory.length===10){
+      //     priceHistory.pop();
+      //   }
+      //   priceHistory.push(stock.price)
+      // } else {
+      //   priceHistory = [stock.price]
+      // }
+      if(priceHistory.length===10){
+        priceHistory.pop()
       }
+      priceHistory.push(stock.price)
+      stock.priceHistory = priceHistory;
+      //console.log(stock.priceHistory)
       stock.price = +newPrice.toFixed(2)
       return stock
     })
@@ -112,6 +122,8 @@ export default class stockBoard extends Component {
   render() {
 
   const {stocks, limitTo, ownedStocks, userName, funds} = this.state
+  const priceHistory = stocks.priceHistory;
+  console.log(priceHistory)
 
     return (
       <div>
