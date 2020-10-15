@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {VictoryChart, VictoryArea, VictoryStack, VictoryTheme, VictoryContainer} from "victory";
+import {VictoryChart, VictoryArea, VictoryStack, VictoryTheme} from "victory";
 
 export default class priceHistory extends Component {
   constructor(props) {
