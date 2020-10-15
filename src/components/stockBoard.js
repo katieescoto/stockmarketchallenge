@@ -13,7 +13,7 @@ export default class stockBoard extends Component {
     this.state = {
       stocks: [],
       ownedStocks: [],
-      limitTo: 15,
+      limitTo: 20,
       funds: 0,
       userName:'',
       gainOrLoss: 0,
@@ -24,6 +24,7 @@ export default class stockBoard extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.addPriceHistory = this.addPriceHistory.bind(this)
+    this.randomStocks = this.randomStocks.bind(this)
   }
 
   componentDidMount(){
@@ -97,7 +98,7 @@ export default class stockBoard extends Component {
     }
 
     if(this.state.funds < item.price){
-      alert('not enough funds')
+      alert('YOU DO NOT HAVE ENOUGH FUNDS!!!')
     } else {
       this.setState({
         ownedStocks: [...this.state.ownedStocks, item],
@@ -124,7 +125,7 @@ export default class stockBoard extends Component {
         owned: item.owned--
       })
     } else{
-      alert('no more shares to sell!')
+      alert('YOU DONT HAVE SHARES TO SELL!!!')
     }
 
     let toSell = item.owned * item.price
@@ -139,12 +140,16 @@ export default class stockBoard extends Component {
     }
   }
 
+  randomStocks(stocks){
+    return stocks[Math.floor(Math.random() * stocks.length)]
+  }
+
   render() {
 
   const {stocks, limitTo, ownedStocks, userName, funds, gainOrLoss} = this.state
   // const priceHistory = stocks.priceHistory;
   // console.log(priceHistory)
-
+  //const obj = JSON.stringify(this.randomStocks(stocks), null, '\t')
     return (
       <div>
           <UserForm userName={userName} funds={funds} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
@@ -160,6 +165,8 @@ export default class stockBoard extends Component {
             <OwnedStock ownedStocks={ownedStocks} sellStock={this.sellStock}/>
           </div>
         </div>
+
+          {/* <pre>{obj1}</pre> */}
       </div>
     )
   }
