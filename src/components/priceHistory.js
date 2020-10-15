@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {VictoryChart, VictoryArea, VictoryStack, VictoryTheme} from "victory";
+import {VictoryChart, VictoryArea, VictoryStack, VictoryTheme, VictoryContainer} from "victory";
 
 export default class priceHistory extends Component {
   constructor(props) {
@@ -9,29 +9,33 @@ export default class priceHistory extends Component {
 
   componentDidMount() {
     this.setStateInterval = window.setInterval(() => {
-      this.setState({ data: this.getData() });
-    }, 4000);
+      this.setState({ data: this.getData(this.props.priceHistory) });
+    }, 2000);
   }
 
   getData(priceHistory) {
-    console.log(priceHistory)
-    let priceHistoryData = []
-    return priceHistory.map((data, i) => {
-      let currPriceObj = Object.create({x: i+1, y: data})
-      priceHistoryData.push(currPriceObj)
-      return priceHistoryData;
-    });
+     return priceHistory.map(() => {
+      return [
+        { x: 1, y: priceHistory[0] },
+        { x: 2, y: priceHistory[1] },
+        { x: 3, y: priceHistory[2] },
+        { x: 4, y: priceHistory[3] },
+        { x: 5, y: priceHistory[4] },
+      ];
+    })
   }
 
   render() {
     return (
       <VictoryChart theme={VictoryTheme.material} animate={{ duration: 1000 }}>
-        <VictoryStack colorScale={"blue"}>
-          {this.state.data.map((item, i) => {
-            return <VictoryArea key={i} data={item} interpolation={"basis"} />;
-          })}
-        </VictoryStack>
-      </VictoryChart>
+          <VictoryStack colorScale={"blue"}>
+            {this.state.data.map((item, i) => {
+              return (
+                <VictoryArea key={i} data={item} interpolation={"basis"} />
+              );
+            })}
+          </VictoryStack>
+        </VictoryChart>
     );
   }
 }

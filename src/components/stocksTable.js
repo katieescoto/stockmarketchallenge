@@ -1,6 +1,5 @@
 import React from 'react'
 import './stockBoard.css'
-import singleStock from './priceHistory'
 
 export default function StockTable(props) {
   const {data, limit, onLoadMore, addStock} = props

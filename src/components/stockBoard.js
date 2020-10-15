@@ -22,6 +22,7 @@ export default class stockBoard extends Component {
     this.sellStock = this.sellStock.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.addPriceHistory = this.addPriceHistory.bind(this)
   }
 
   componentDidMount(){
@@ -42,24 +43,26 @@ export default class stockBoard extends Component {
        this.interval = setInterval(()=>this.growth(this.state.stocks),3000)
   }
 
+  addPriceHistory(stocks){
+    let priceHistoryStocks = stocks.map((stock) => {
+      return stock.priceHistory = [];
+    })
+    this.setState({
+      stocks: priceHistoryStocks,
+    });
+  }
+
   growth(stocks){
-    let priceHistory = [];
     let updatedStocks = stocks.map((stock)=>{
       let newPrice = stock.price * randomGrowth();
-      // if (priceHistory.length>=0){
-      //   if(priceHistory.length===10){
-      //     priceHistory.pop();
-      //   }
-      //   priceHistory.push(stock.price)
-      // } else {
-      //   priceHistory = [stock.price]
-      // }
-      if(priceHistory.length===10){
-        priceHistory.pop()
+      if (stock.priceHistory){
+        if(stock.priceHistory.length===10){
+          stock.priceHistory.pop();
+        }
+        stock.priceHistory.push(stock.price)
+      } else {
+        stock.priceHistory = [stock.price]
       }
-      priceHistory.push(stock.price)
-      stock.priceHistory = priceHistory;
-      //console.log(stock.priceHistory)
       stock.price = +newPrice.toFixed(2)
       return stock
     })
@@ -76,12 +79,8 @@ export default class stockBoard extends Component {
   }
 
   handleSubmit(event){
-    // console.log('welcome:->' + this.state.userName, 'funds:->', this.state.funds)
-    event.preventDefault()
-    // this.setState({
-    //       [event.target.name] : event.target.value
-    //     })
 
+    event.preventDefault()
   }
 
   onLoadMore(){
