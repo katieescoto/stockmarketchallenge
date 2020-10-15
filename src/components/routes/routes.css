@@ -1,0 +1,13 @@
+
+.routeHeader{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color:rgba(113, 243, 243, 0.842)
+}
+
+.linkHeader{
+  padding: 20px;
+  font-size: 25px;
+}
+

@@ -1,14 +1,22 @@
-.header {
-  flex-direction: row;
-  justify-content: space-between;
-  padding-top: 15px
+.navHeader {
+  flex-direction: column;
+  justify-content: space-around;
+  /* padding-top: 15px */
 }
 .box{
   border: 1px solid black;
   border-spacing: 10px;
+  font-size: 25px;
 }
 .portfolio{
   background-color: black;
   color: turquoise;
-  column-gap: 10px
+  column-gap: 20px;
+  text-transform: uppercase;
+}
+.boxWelcome{
+  color: rgb(255, 0, 157);
+  border: 1px solid black;
+  border-spacing: 10px;
+  font-size: 25px;
 }

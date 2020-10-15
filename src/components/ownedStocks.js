@@ -8,23 +8,23 @@ export default function ownedStocks(props) {
 
   return (
     <div>
-      <h1 className="boardName">Portfolio</h1>
-      <table className="stockTable">
-        <thead className="tableHeader">
-          <tr>
-            <th>SYM</th>
-            <th>COM</th>
-            <th>P/SH</th>
-            <th>NUM SHR</th>
-          </tr>
-        </thead>
-        <tbody>
-          {uniqueStocks.map((item) => (
+      <h1 className='boardName'>Portfolio</h1>
+        <table className='stockTable'>
+          <thead className='tableHeader'>
+            <tr>
+              <th>SYM</th>
+              <th>COM</th>
+              <th>P/SH</th>
+              <th>OWN</th>
+            </tr>
+          </thead>
+           <tbody>
+            {uniqueStocks.map(item => (
             <tr key={item.id}>
               <td>{item.stockSymbol}</td>
               <td>{item.companyName}</td>
               <td> ${item.price}/sh</td>
-              <td>Shares: {item.owned}</td>
+              <td>x {item.owned}</td>
               <td>
                 <button
                   className="sellButton"
