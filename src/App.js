@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+//import PriceHistory from './components/priceHistory';
 import StockBoard from './components/stockBoard'
 // import Routes from './components/routes/routes'
 // import UserFrom from './components/userForm'
@@ -13,6 +14,7 @@ function App() {
       {/* <UserFrom /> */}
       {/* <Routes /> */}
       <StockBoard/>
+      {/* <PriceHistory/> */}
       {/* <Footer /> */}
     </div>
   );
