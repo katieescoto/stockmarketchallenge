@@ -14,7 +14,7 @@ export default function ownedStocks(props) {
               <th>SYM</th>
               <th>COM</th>
               <th>P/SH</th>
-              <th>NUM SHR</th>
+              <th>OWN</th>
             </tr>
           </thead>
            <tbody>

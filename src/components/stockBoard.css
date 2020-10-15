@@ -30,7 +30,8 @@
   border-bottom: 2px solid white;
   padding: 1vh;
   letter-spacing: 5px;
-  font-size: 40px
+  font-size: 40px;
+  text-transform: uppercase
 }
 
 .buyButton{

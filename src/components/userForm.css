@@ -1,0 +1,18 @@
+.formHeader{
+  border: 3px solid rgba(253, 253, 253, 0.966);
+  color:white;
+  background-color: black;
+  filter: drop-shadow(9px 9px 9px cyan);
+}
+
+.label{
+  /* display: flex;
+  flex-direction: row;   */
+  width: 10rem;
+}
+
+.inputBox{
+  padding: 5px;
+  text-transform: uppercase;
+  background-color: rgba(245, 245, 245, 0.911);
+}
