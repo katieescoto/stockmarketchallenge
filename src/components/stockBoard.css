@@ -1,7 +1,7 @@
 .row{
     display: flex;
     column-gap: 15px;
-    padding: 5vh;
+    padding: 3vh;
     color: white;
     background-color: black;
     filter: drop-shadow(0 0 8px cyan);

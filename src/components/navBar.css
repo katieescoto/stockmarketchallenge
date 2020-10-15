@@ -1,12 +1,13 @@
 .navHeader {
   flex-direction: column;
   justify-content: space-around;
-  /* padding-top: 15px */
+  /* padding-bottom: 10px */
 }
 .box{
   border: 1px solid black;
   border-spacing: 10px;
   font-size: 25px;
+  padding: 5px;
 }
 .portfolio{
   background-color: black;
@@ -19,4 +20,12 @@
   border: 1px solid black;
   border-spacing: 10px;
   font-size: 25px;
+  padding: 10px;
+}
+
+.boxProfitorLoss{
+  border: 1px solid black;
+  border-spacing: 10px;
+  font-size: 25px;
+  padding: 10px;
 }

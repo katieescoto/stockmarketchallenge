@@ -7,7 +7,7 @@ export default function ownedStocks(props) {
   const uniqueStocks = Array.from(new Set(ownedStocks))
 
   return (
-    <div>
+    <div style={{padding:'auto', justifyContent: 'space-evenly', margin: '15px'}}>
       <h1 className='boardName'>Portfolio</h1>
         <table className='stockTable'>
           <thead className='tableHeader'>
@@ -39,10 +39,12 @@ export default function ownedStocks(props) {
               ) : (
                 <PriceHistory priceHistory={item.priceHistory} />
               )}
+
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+
   );
 }
