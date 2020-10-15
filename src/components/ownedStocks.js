@@ -1,5 +1,6 @@
 import React from 'react'
 import './stockBoard.css'
+import PriceHistory from './priceHistory'
 
 export default function ownedStocks(props) {
   const {ownedStocks, sellStock} = props
@@ -24,13 +25,24 @@ export default function ownedStocks(props) {
               <td>{item.companyName}</td>
               <td> ${item.price}/sh</td>
               <td>x {item.owned}</td>
-              <button className='sellButton'type="button" onClick={()=> sellStock(item)}>SELL</button>
-              {/* <td><button type="button" onClick={console.log('delete')}>-</button></td> */}
+              <td>
+                <button
+                  className="sellButton"
+                  type="button"
+                  onClick={() => sellStock(item)}
+                >
+                  SELL
+                </button>
+              </td>
+              {!item.priceHistory ? (
+                "No price history to display!"
+              ) : (
+                <PriceHistory priceHistory={item.priceHistory} />
+              )}
             </tr>
-        ))}
-
-          </tbody>
-        </table>
+          ))}
+        </tbody>
+      </table>
     </div>
-  )
+  );
 }
